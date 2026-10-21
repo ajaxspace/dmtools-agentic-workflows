@@ -261,6 +261,13 @@
     if rework_override_ok; then
       runner="$RUNNER_REWORK"
     fi
+  elif echo "$LABELS" | grep -qw "ai_questions_asked"; then
+    # Fork: ask-mode — the dev leg asked the reporter for missing inputs.
+    # No review/rework may derive while the question is open; only a human
+    # reply (comment-resume above) or an explicit dispatch may move it.
+    echo "run=false" >> "$GITHUB_OUTPUT"
+    echo "→ issue #$NUMBER carries ai_questions_asked — waiting for human input"
+    exit 0
   elif echo "$LABELS" | grep -qw "agent:review"; then
     # status:In Review is NOT an in-flight marker here — the DEV leg
     # sets it as the "ready for review" invitation, so blocking on it
