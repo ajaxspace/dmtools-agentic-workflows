@@ -144,6 +144,16 @@
   # (bot echoes, agent chatter, comments on tickets nobody asked
   # about) is a clean no-op.
   if [ "${EVENT_NAME:-}" = "issue_comment" ]; then
+    comment_body="$(gh api "repos/$GITHUB_REPOSITORY/issues/comments/${COMMENT_ID:-0}" -q .body 2>/dev/null || echo '')"
+    # The machine identity can equal the human's account
+    # (SOURCE_GITHUB_TOKEN = the repo owner), so author login proves
+    # nothing: the agent's OWN question comments are recognized by their
+    # marker line and never count as a human reply.
+    if printf '%s' "$comment_body" | grep -q "needs-input: ai_questions_asked"; then
+      echo "run=false" >> "$GITHUB_OUTPUT"
+      echo "→ issue_comment is the agent's own needs-input question (marker) — nothing to resume"
+      exit 0
+    fi
     author="$(gh api "repos/$GITHUB_REPOSITORY/issues/comments/${COMMENT_ID:-0}" -q .user.login 2>/dev/null || echo "${COMMENT_AUTHOR:-}")"
     case "$author" in
       ""|"${AGENT_HANDLE:-ai-teammate}"|github-actions[bot]|*bot)
