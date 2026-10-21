@@ -35,15 +35,15 @@
       ;;
   esac
   if [ -z "${tag}" ]; then
-    tag="$(gh release list --repo IstiN/dmtools-agents --limit 10 --json tagName \
+    tag="$(gh release list --repo ajaxspace/dmtools-agents --limit 10 --json tagName \
       --jq '[.[].tagName | select(startswith("agents-rel-"))] | .[0]')"
-    [ -n "${tag}" ] || { echo "::error::no agents-rel-* release found in IstiN/dmtools-agents"; exit 1; }
+    [ -n "${tag}" ] || { echo "::error::no agents-rel-* release found in ajaxspace/dmtools-agents"; exit 1; }
     echo "::notice::factory-setup from newest release ${tag}"
   fi
   dir="${RUNNER_TEMP}/factory-setup"
   mkdir -p "${dir}"
   tmp="$(mktemp -d)"
-  gh release download "${tag}" --repo IstiN/dmtools-agents \
+  gh release download "${tag}" --repo ajaxspace/dmtools-agents \
     --pattern 'factory-setup-*.zip' --dir "${tmp}" --clobber
   unzip -q "${tmp}"/factory-setup-*.zip -d "${dir}"
   [ -f "${dir}/setup/cache.sh" ] || { echo "::error::factory-setup incomplete at ${tag} (no setup/cache.sh)"; exit 1; }

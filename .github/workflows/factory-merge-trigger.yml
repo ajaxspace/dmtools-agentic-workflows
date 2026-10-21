@@ -150,8 +150,8 @@ jobs:
               gh api "repos/${repo}/releases/tags/${knob}" --jq .tag_name
             fi
           }
-          AGENTS_TAG="$(resolve_tag IstiN/dmtools-agents "$AGENTS_VERSION")"
-          DMTOOLS_TAG="$(resolve_tag epam/dmtools-dart "$DMTOOLS_VERSION")"
+          AGENTS_TAG="$(resolve_tag ajaxspace/dmtools-agents "$AGENTS_VERSION")"
+          DMTOOLS_TAG="$(resolve_tag ajaxspace/dmtools-dart "$DMTOOLS_VERSION")"
           echo "AGENTS_TAG=${AGENTS_TAG}" >> "$GITHUB_ENV"
           echo "DMTOOLS_TAG=${DMTOOLS_TAG}" >> "$GITHUB_ENV"
           echo "agents pack release: ${AGENTS_TAG} (knob: ${AGENTS_VERSION})"
@@ -160,7 +160,7 @@ jobs:
       - name: Install dmtools CLI (release bundle)
         if: steps.gate.outputs.enabled == 'true'
         run: |
-          curl -fsSL "https://github.com/epam/dmtools-dart/releases/download/${DMTOOLS_TAG}/install.sh" \
+          curl -fsSL "https://github.com/ajaxspace/dmtools-dart/releases/download/${DMTOOLS_TAG}/install.sh" \
             -o /tmp/dmtools-install.sh
           bash /tmp/dmtools-install.sh "${DMTOOLS_TAG}"
           echo "$HOME/.dmtools/bin" >> "$GITHUB_PATH"
@@ -178,7 +178,7 @@ jobs:
           SOURCE_GITHUB_TOKEN: ${{ steps.app-token.outputs.token || secrets.PAT_TOKEN || github.token }}
           CI_RUN_URL: ${{ github.event.workflow_run.html_url }}
         run: |
-          export DMTOOLS_PACK_REGISTRY="https://github.com/IstiN/dmtools-agents/releases/download/${AGENTS_TAG}"
+          export DMTOOLS_PACK_REGISTRY="https://github.com/ajaxspace/dmtools-agents/releases/download/${AGENTS_TAG}"
           repo='${{ github.repository }}'
           override=$(cat <<EOF
           {"params":{"jobParams":{"repo":"${repo}","label":"pr_approved","mapPrLabels":${{ inputs.map_pr_labels }},"ghBranchPattern":${{ inputs.gh_branch_pattern }},"removePrLabel":${{ inputs.remove_pr_label }},"ciRunUrl":"${CI_RUN_URL}"}}}

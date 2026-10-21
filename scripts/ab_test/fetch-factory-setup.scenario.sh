@@ -52,7 +52,7 @@ case_env() {
 
 PACK_TAG_OVERRIDE=agents-rel-9             ab_case registry-var
 PACK_TAG_OVERRIDE=agents-rel-9 AGENTS_KNOB_OVERRIDE=agents-rel-7 ab_case knob-pinned
-PACK_TAG_OVERRIDE='https://github.com/IstiN/dmtools-agents/releases/tag/agents-rel-5' ab_case url-resolver
+PACK_TAG_OVERRIDE='https://github.com/ajaxspace/dmtools-agents/releases/tag/agents-rel-5' ab_case url-resolver
 ab_case newest-fallback
 ab_case mounted-tree
 ab_case no-release

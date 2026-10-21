@@ -71,7 +71,7 @@ jobs:
         # trust level as `uses: ...factory-*.yml@main` in the stubs.
         run: |
           curl -fsSL \
-            "https://raw.githubusercontent.com/IstiN/dmtools-agentic-workflows/main/scripts/sm_merge_guard.py" \
+            "https://raw.githubusercontent.com/ajaxspace/dmtools-agentic-workflows/main/scripts/sm_merge_guard.py" \
             -o "$RUNNER_TEMP/sm_merge_guard.py"
 
       # GitHub App auth (awf#52): with APP_ID + APP_PRIVATE_KEY secrets the

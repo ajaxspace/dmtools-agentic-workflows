@@ -19,9 +19,9 @@
     # newest release that actually ships the CLI bundle.
     if [ "${FA_VERSION}" = "latest" ] || [ -z "${FA_VERSION}" ]; then
       for t in $(gh release list \
-          --repo IstiN/flutter_agent_harness --limit 10 \
+          --repo ajaxspace/flutter_agent_harness --limit 10 \
           --json tagName --jq '.[].tagName'); do
-        if gh release view "$t" --repo IstiN/flutter_agent_harness \
+        if gh release view "$t" --repo ajaxspace/flutter_agent_harness \
             --json assets --jq '.assets[].name' 2>/dev/null \
             | grep -q "^fa-linux-${FA_ARCH}\.tar\.gz$"; then
           FA_VERSION="$t"
@@ -31,7 +31,7 @@
       done
     fi
     gh release download "${FA_VERSION}" \
-      --repo IstiN/flutter_agent_harness \
+      --repo ajaxspace/flutter_agent_harness \
       --pattern "fa-linux-${FA_ARCH}.tar.gz" --dir "${tmp}" --clobber
     tar -xzf "${tmp}/fa-linux-${FA_ARCH}.tar.gz" -C "${tmp}"
     mkdir -p "${HOME}/.local/bin" "${HOME}/.local/lib"

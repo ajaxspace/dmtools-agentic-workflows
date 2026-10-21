@@ -241,7 +241,7 @@ jobs:
           ref="$AWF_REF"
           dir="${RUNNER_TEMP}/factory-kit"
           git init -q "$dir"
-          git -C "$dir" remote add origin https://github.com/IstiN/dmtools-agentic-workflows.git
+          git -C "$dir" remote add origin https://github.com/ajaxspace/dmtools-agentic-workflows.git
           git -C "$dir" fetch -q --depth 1 origin "$ref" \
             || { echo "::error::factory scripts fetch failed at $ref — the dispatch gate cannot run"; exit 1; }
           git -C "$dir" checkout -q FETCH_HEAD -- scripts/
@@ -358,7 +358,7 @@ jobs:
           ref="$AWF_REF"
           dir="${RUNNER_TEMP}/factory-kit"
           git init -q "$dir"
-          git -C "$dir" remote add origin https://github.com/IstiN/dmtools-agentic-workflows.git
+          git -C "$dir" remote add origin https://github.com/ajaxspace/dmtools-agentic-workflows.git
           git -C "$dir" fetch -q --depth 1 origin "$ref" \
             || { echo "::warning::kit fetch failed — falling back to FACTORY_ROOT copies"; exit 0; }
           git -C "$dir" checkout -q FETCH_HEAD -- kit/
@@ -645,7 +645,7 @@ jobs:
           # fleets (live: fa pr-1350 review leg 2026-10-06). Mirrors
           # factory-sm.yml's tick export and merge-trigger's derive.
           if [ -n "${RESOLVED_AGENTS_TAG:-}" ]; then
-            export DMTOOLS_PACK_REGISTRY="https://github.com/IstiN/dmtools-agents/releases/download/${RESOLVED_AGENTS_TAG}"
+            export DMTOOLS_PACK_REGISTRY="https://github.com/ajaxspace/dmtools-agents/releases/download/${RESOLVED_AGENTS_TAG}"
             echo "→ pack registry pinned to ${RESOLVED_AGENTS_TAG} (AGENTS_VERSION parity, awf#25)"
           fi
           # #542 mechanical guard: interpose the git push/commit guard shim at
