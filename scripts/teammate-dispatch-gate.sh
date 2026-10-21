@@ -145,10 +145,14 @@
   # about) is a clean no-op.
   if [ "${EVENT_NAME:-}" = "issue_comment" ]; then
     comment_body="$(gh api "repos/$GITHUB_REPOSITORY/issues/comments/${COMMENT_ID:-0}" -q .body 2>/dev/null || echo '')"
-    # The machine identity can equal the human's account
-    # (SOURCE_GITHUB_TOKEN = the repo owner), so author login proves
-    # nothing: the agent's OWN question comments are recognized by their
-    # marker line and never count as a human reply.
+    # TEMPORARY COLLISION WORKAROUND — remove later: the machine identity
+    # can equal the human's account (SOURCE_GITHUB_TOKEN = the repo owner;
+    # ai-teammate is not yet a separate collaborator), so author login
+    # proves nothing: the agent's OWN question comments are recognized by
+    # their marker line and never count as a human reply. Once the machine
+    # runs under a dedicated identity, remove this check and the marker
+    # requirement in the agents pack instructions (dmtools-agents
+    # instructions/{story_development,bug_development}/general_guidelines.md).
     if printf '%s' "$comment_body" | grep -q "needs-input: ai_questions_asked"; then
       echo "run=false" >> "$GITHUB_OUTPUT"
       echo "→ issue_comment is the agent's own needs-input question (marker) — nothing to resume"
