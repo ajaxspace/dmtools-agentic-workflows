@@ -40,7 +40,7 @@ GUARD_FETCH_STEP = """      - name: Fetch factory scripts (this repo @ invocatio
           ref="${AWF_REF##*@}"
           dir="${RUNNER_TEMP}/factory-kit"
           git init -q "$dir"
-          git -C "$dir" remote add origin https://github.com/IstiN/dmtools-agentic-workflows.git
+          git -C "$dir" remote add origin https://github.com/ajaxspace/dmtools-agentic-workflows.git
           git -C "$dir" fetch -q --depth 1 origin "$ref" \\
             || { echo "::error::factory scripts fetch failed at $ref — the dispatch gate cannot run"; exit 1; }
           git -C "$dir" checkout -q FETCH_HEAD -- scripts/

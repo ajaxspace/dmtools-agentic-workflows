@@ -197,8 +197,8 @@ jobs:
               gh api "repos/${repo}/releases/tags/${knob}" --jq .tag_name
             fi
           }
-          AGENTS_TAG="$(resolve_tag IstiN/dmtools-agents "$AGENTS_VERSION")"
-          DMTOOLS_TAG="$(resolve_tag epam/dmtools-dart "$DMTOOLS_VERSION")"
+          AGENTS_TAG="$(resolve_tag ajaxspace/dmtools-agents "$AGENTS_VERSION")"
+          DMTOOLS_TAG="$(resolve_tag ajaxspace/dmtools-dart "$DMTOOLS_VERSION")"
           echo "AGENTS_TAG=${AGENTS_TAG}" >> "$GITHUB_ENV"
           echo "DMTOOLS_TAG=${DMTOOLS_TAG}" >> "$GITHUB_ENV"
           echo "agents pack release: ${AGENTS_TAG} (knob: ${AGENTS_VERSION})"
@@ -208,7 +208,7 @@ jobs:
         # The installer ships as a release asset, version-locked to the
         # bundle it installs — no copy of install.sh in the target repo.
         run: |
-          curl -fsSL "https://github.com/epam/dmtools-dart/releases/download/${DMTOOLS_TAG}/install.sh" \
+          curl -fsSL "https://github.com/ajaxspace/dmtools-dart/releases/download/${DMTOOLS_TAG}/install.sh" \
             -o /tmp/dmtools-install.sh
           bash /tmp/dmtools-install.sh "${DMTOOLS_TAG}"
           echo "$HOME/.dmtools/bin" >> "$GITHUB_PATH"
@@ -243,7 +243,7 @@ jobs:
           # directory: <base>/catalog.json maps agent→version, packs and
           # their .sha256 sidecars live at <base>/<name>-<version>.zip.
         run: |
-          export DMTOOLS_PACK_REGISTRY="https://github.com/IstiN/dmtools-agents/releases/download/${AGENTS_TAG}"
+          export DMTOOLS_PACK_REGISTRY="https://github.com/ajaxspace/dmtools-agents/releases/download/${AGENTS_TAG}"
           repo='${{ github.repository }}'
           # #687: silentToken powers update_branch localActions (github.token
           # pushes trigger no workflows); sourceToken restores the PAT after.

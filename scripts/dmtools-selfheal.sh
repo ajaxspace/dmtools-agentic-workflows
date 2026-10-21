@@ -16,7 +16,7 @@
   ls -la "${HOME}/.dmtools/bin" 2>/dev/null | head -8 || true
   if ! dmtools --version >/dev/null 2>&1; then
     echo "dmtools on PATH is broken — force reinstall (${DMTOOLS_VERSION})"
-    curl -fsSL "https://github.com/epam/dmtools-dart/releases/download/${DMTOOLS_VERSION}/install.sh" \
+    curl -fsSL "https://github.com/ajaxspace/dmtools-dart/releases/download/${DMTOOLS_VERSION}/install.sh" \
       -o /tmp/dmtools-heal.sh
     bash /tmp/dmtools-heal.sh "${DMTOOLS_VERSION}"
     export PATH="${HOME}/.dmtools/bin:${PATH}"
